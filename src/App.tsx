@@ -3,13 +3,14 @@ import React from 'react'
 import './App.css'
 
 import CreateWidget from './components/CreateWidget/CreateWidget'
+import DeleteWidget from './components/DeleteWidget/DeleteWidget'
 import FindWidget from './components/FindWidget/FindWidget'
 import SideBar from './components/SideBar/SideBar'
 import UpdateWidget from './components/UpdateWidget/UpdateWidget'
 import WidgetList from './components/WidgetList'
 
 const App = (): JSX.Element => {
-  const [page, setPage] = React.useState('find');
+  const [page, setPage] = React.useState('delete');
 
   return (
     <>
@@ -19,6 +20,7 @@ const App = (): JSX.Element => {
       {page === 'create' && <CreateWidget />}
       {page === 'update' && <UpdateWidget />}
       {page === 'find' && <FindWidget />}
+      {page === 'delete' && <DeleteWidget />}
     </>
   )
 }

@@ -1,22 +1,23 @@
 import { Backdrop, Box, Button, CircularProgress, Snackbar, TextField, Typography } from "@mui/material";
-import React, { useState } from "react";
-import { findWidget, Widget } from "../../lib/apiConnect";
+import React, { useEffect, useState } from "react";
+import { deleteWidget, findWidget, updateWidget, Widget } from "../../lib/apiConnect";
 
-export default function FindWidget() {
+export default function DeleteWidget() {
     const [name, setName] = useState('')
     const [loading, setLoading] = useState(false)
-    const [widget, setWidget] = useState<Widget | null>()
     const [success, setSuccess] = useState(false)
+    const [creationError, setCreationError] = useState(false)
     const [errorMessage, setErrorMessage] = useState('')
+    const [alreadyExists, setAlreadyExists] = useState(false)
+    const [debouncing, setDebouncing] = useState(false)
 
-    const onFind = async () => {
+    const onUpdate = async () => {
         setLoading(true);
 
         try {
             if (name) {
-                const newWidget = await findWidget(name);
+                await deleteWidget(name);
 
-                setWidget(newWidget);
                 setSuccess(true);
             }
         } catch (error: any) {
@@ -27,10 +28,33 @@ export default function FindWidget() {
             } else {
                 setErrorMessage("An unexpected error occurred");
             }
+
+            setCreationError(true);
         } finally {
             setLoading(false);
         }
     }
+
+    const find = async () => {
+        const response = await findWidget(name);
+        const exists = response !== null;
+
+        setAlreadyExists(exists);
+        setDebouncing(false);
+    };
+
+    /*  Use debouncing to validate name to prevent API calls on each keystroke,
+        instead, it will wait for the user to finish typing and then make the API call.
+    */
+    useEffect(() => {
+        setDebouncing(true);
+
+        const debounceTimeout = setTimeout(() => {
+            find();
+        }, 500); // Wait 500ms after the last keystroke
+
+        return () => clearTimeout(debounceTimeout);
+    }, [name]);
 
     return (
         <Box
@@ -41,7 +65,7 @@ export default function FindWidget() {
         >
             <Box sx={{ maxWidth: 600 }}>
                 <Typography variant="h3" sx={{ textAlign: 'center', marginBottom: 4 }}>
-                    Find widget
+                    Delete widget
                 </Typography>
 
                 <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
@@ -52,18 +76,9 @@ export default function FindWidget() {
                             size="small"
                             sx={{ width: '70%' }}
                             value={name}
+                            helperText={alreadyExists && "Widget found."}
                             onChange={(e) => { setName(e.target.value) }}
                         />
-                    </Box>
-
-                    <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                        <Typography sx={{ width: '30%' }}>Description</Typography>
-                        <Typography sx={{ width: '70%' }}>{widget?.description}</Typography>
-                    </Box>
-
-                    <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                        <Typography sx={{ width: '30%' }}>Price</Typography>
-                        <Typography sx={{ width: '70%' }}>{widget && `$${widget?.price}`}</Typography>
                     </Box>
 
                     <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
@@ -71,10 +86,10 @@ export default function FindWidget() {
                             variant="contained"
                             color="primary"
                             sx={{ textTransform: 'none' }}
-                            disabled={name.length === 0}
-                            onClick={onFind}
+                            disabled={!alreadyExists}
+                            onClick={onUpdate}
                         >
-                            Find
+                            Delete
                         </Button>
                     </Box>
                 </Box>
@@ -93,7 +108,7 @@ export default function FindWidget() {
                 <Snackbar
                     open={success}
                     autoHideDuration={2000}
-                    message={`Widget ${widget?.name} updated successfully.`}
+                    message={'Widget deleted successfully.'}
                     onClose={() => setSuccess(false)}
                     anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
                 />)
