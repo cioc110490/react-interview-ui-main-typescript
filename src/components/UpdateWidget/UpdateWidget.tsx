@@ -22,6 +22,9 @@ export default function UpdateWidget() {
             if (name && description && price) {
                 const newWidget = await updateWidget({ name: name, description: description, price: price });
 
+                setName('')
+                setDescription('')
+                setPrice(0)
                 setNewWidget(newWidget);
                 setSuccess(true);
             }

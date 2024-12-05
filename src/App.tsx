@@ -10,7 +10,7 @@ import UpdateWidget from './components/UpdateWidget/UpdateWidget'
 import WidgetList from './components/WidgetList'
 
 const App = (): JSX.Element => {
-  const [page, setPage] = React.useState('delete');
+  const [page, setPage] = React.useState('list');
 
   return (
     <>
