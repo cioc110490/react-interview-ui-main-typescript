@@ -30,7 +30,7 @@ export default function FindWidget() {
             alignItems="center"
             mt={5}
         >
-            <Box sx={{ maxWidth: 600 }}>
+            <Box sx={{ maxWidth: 450, width: 450 }}>
                 <Typography variant="h3" sx={{ textAlign: 'center', marginBottom: 4 }}>
                     Find widget
                 </Typography>

@@ -10,17 +10,17 @@ import UpdateWidget from './components/UpdateWidget/UpdateWidget'
 import WidgetList from './components/WidgetList'
 
 const App = (): JSX.Element => {
-  const [page, setPage] = React.useState('list');
+  const [page, setPage] = React.useState('List');
 
   return (
     <>
       <SideBar selected={page} setSelected={setPage} />
 
-      {page === 'list' && <Stack><WidgetList /></Stack>}
-      {page === 'create' && <CreateWidget />}
-      {page === 'update' && <UpdateWidget />}
-      {page === 'find' && <FindWidget />}
-      {page === 'delete' && <DeleteWidget />}
+      {page === 'List' && <Stack><WidgetList /></Stack>}
+      {page === 'Create' && <CreateWidget />}
+      {page === 'Update' && <UpdateWidget />}
+      {page === 'Find' && <FindWidget />}
+      {page === 'Delete' && <DeleteWidget />}
     </>
   )
 }
