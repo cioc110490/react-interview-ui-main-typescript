@@ -1,14 +1,15 @@
+import Stack from '@mui/material/Stack'
 import React from 'react'
 import './App.css'
-import Stack from '@mui/material/Stack'
 
-import WidgetList from './components/WidgetList'
-import { Divider, Drawer, List, ListItem, ListItemButton, ListItemIcon } from '@mui/material'
-import SideBar from './components/SideBar/SideBar'
 import CreateWidget from './components/CreateWidget/CreateWidget'
+import FindWidget from './components/FindWidget/FindWidget'
+import SideBar from './components/SideBar/SideBar'
+import UpdateWidget from './components/UpdateWidget/UpdateWidget'
+import WidgetList from './components/WidgetList'
 
 const App = (): JSX.Element => {
-  const [page, setPage] = React.useState('create');
+  const [page, setPage] = React.useState('find');
 
   return (
     <>
@@ -16,12 +17,10 @@ const App = (): JSX.Element => {
 
       {page === 'list' && <Stack><WidgetList /></Stack>}
       {page === 'create' && <CreateWidget />}
+      {page === 'update' && <UpdateWidget />}
+      {page === 'find' && <FindWidget />}
     </>
   )
 }
-
-/*
-
-*/
 
 export default App

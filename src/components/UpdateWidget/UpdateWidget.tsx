@@ -1,8 +1,8 @@
 import { Backdrop, Box, Button, CircularProgress, Snackbar, TextField, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
-import { createWidget, findWidget, Widget } from "../../lib/apiConnect";
+import { findWidget, updateWidget, Widget } from "../../lib/apiConnect";
 
-export default function CreateWidget() {
+export default function UpdateWidget() {
     const [name, setName] = useState('')
     const [description, setDescription] = useState('')
     const [price, setPrice] = useState<number>(0)
@@ -15,12 +15,12 @@ export default function CreateWidget() {
     const [validation, setValidation] = useState(false)
     const [debouncing, setDebouncing] = useState(false)
 
-    const onCreate = async () => {
+    const onUpdate = async () => {
         setLoading(true);
 
         try {
             if (name && description && price) {
-                const newWidget = await createWidget({ name: name, description: description, price: price });
+                const newWidget = await updateWidget({ name: name, description: description, price: price });
 
                 setNewWidget(newWidget);
                 setSuccess(true);
@@ -54,7 +54,7 @@ export default function CreateWidget() {
         const exists = response !== null;
 
         setAlreadyExists(exists);
-        setValidation(!(isNameValid && isDescriptionValid && isPriceValid && !exists));
+        setValidation(!(isNameValid && isDescriptionValid && isPriceValid && exists));
         setDebouncing(false);
     };
 
@@ -85,7 +85,7 @@ export default function CreateWidget() {
         >
             <Box sx={{ maxWidth: 600 }}>
                 <Typography variant="h3" sx={{ textAlign: 'center', marginBottom: 4 }}>
-                    Create a new widget
+                    Update widget
                 </Typography>
 
                 <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
@@ -96,8 +96,7 @@ export default function CreateWidget() {
                             size="small"
                             sx={{ width: '70%' }}
                             value={name}
-                            helperText={alreadyExists && "Widget already exists."}
-                            error={alreadyExists}
+                            helperText={alreadyExists && "Widget found."}
                             onChange={(e) => { setName(e.target.value) }}
                         />
                     </Box>
@@ -131,9 +130,9 @@ export default function CreateWidget() {
                             color="primary"
                             sx={{ textTransform: 'none' }}
                             disabled={validation || debouncing}
-                            onClick={onCreate}
+                            onClick={onUpdate}
                         >
-                            Create
+                            Update
                         </Button>
                     </Box>
                 </Box>
@@ -152,7 +151,7 @@ export default function CreateWidget() {
                 <Snackbar
                     open={success}
                     autoHideDuration={2000}
-                    message={`Widget ${newWidget?.name} created successfully.`}
+                    message={`Widget ${newWidget?.name} updated successfully.`}
                     onClose={() => setSuccess(false)}
                     anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
                 />)
