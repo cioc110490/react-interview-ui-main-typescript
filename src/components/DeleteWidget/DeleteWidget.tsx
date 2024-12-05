@@ -1,13 +1,11 @@
 import { Backdrop, Box, Button, CircularProgress, Snackbar, TextField, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
-import { deleteWidget, findWidget, updateWidget, Widget } from "../../lib/apiConnect";
+import { deleteWidget, findWidget } from "../../lib/apiConnect";
 
 export default function DeleteWidget() {
     const [name, setName] = useState('')
     const [loading, setLoading] = useState(false)
     const [success, setSuccess] = useState(false)
-    const [creationError, setCreationError] = useState(false)
-    const [errorMessage, setErrorMessage] = useState('')
     const [alreadyExists, setAlreadyExists] = useState(false)
     const [debouncing, setDebouncing] = useState(false)
 
@@ -21,15 +19,7 @@ export default function DeleteWidget() {
                 setSuccess(true);
             }
         } catch (error: any) {
-            if (error.response && error.response.status === 400) {
-                console.error('Error fetching widgets', error);
-
-                setErrorMessage(error.response.data);
-            } else {
-                setErrorMessage("An unexpected error occurred");
-            }
-
-            setCreationError(true);
+            console.error('Error fetching widgets', error);
         } finally {
             setLoading(false);
         }

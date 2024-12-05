@@ -6,7 +6,7 @@ export default function FindWidget() {
     const [name, setName] = useState('')
     const [loading, setLoading] = useState(false)
     const [widget, setWidget] = useState<Widget | null>()
-    const [found, setFound] = useState(false)
+    const [notFound, setNotFound] = useState(false)
 
     const onFind = async () => {
         setLoading(true);
@@ -15,7 +15,7 @@ export default function FindWidget() {
             const newWidget = await findWidget(name);
 
             setWidget(newWidget);
-            setFound(newWidget !== null);
+            setNotFound(newWidget === null);
         } catch (error: any) {
             console.error('Error finding widgets', error);
         } finally {
@@ -47,19 +47,15 @@ export default function FindWidget() {
                         />
                     </Box>
 
-                    {found &&
-                        <>
-                            <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                                <Typography sx={{ width: '30%' }}>Description</Typography>
-                                <Typography sx={{ width: '60%' }}>{widget?.description}</Typography>
-                            </Box>
+                    <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                        <Typography sx={{ width: '30%' }}>Description</Typography>
+                        <Typography sx={{ width: '60%' }}>{widget?.description}</Typography>
+                    </Box>
 
-                            <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                                <Typography sx={{ width: '30%' }}>Price</Typography>
-                                <Typography sx={{ width: '60%' }}>{widget && `$${widget?.price}`}</Typography>
-                            </Box>
-                        </>
-                    }
+                    <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                        <Typography sx={{ width: '30%' }}>Price</Typography>
+                        <Typography sx={{ width: '60%' }}>{widget && `$${widget?.price}`}</Typography>
+                    </Box>
 
                     <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
                         <Button
@@ -84,12 +80,12 @@ export default function FindWidget() {
                 </Backdrop>
             )}
 
-            {!found && (
+            {notFound && (
                 <Snackbar
-                    open={!found}
+                    open={notFound}
                     autoHideDuration={2000}
                     message={`Widget ${name} not found.`}
-                    onClose={() => setFound(false)}
+                    onClose={() => setNotFound(false)}
                     anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
                 />)
             }
