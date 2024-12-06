@@ -12,6 +12,8 @@ npm install
 npm start
 ```
 
+## Summary
+
 The UI includes a sidebar menu with the following options:
 
 * `List`: Display all available widgets
