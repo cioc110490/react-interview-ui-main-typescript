@@ -16,7 +16,7 @@ export const fetchAllWidgets = (): Promise<Widget[]> =>
 export const createWidget = (widget: Widget): Promise<Widget> => 
   axios.post(`${BASE_URL}/v1/widgets`, widget).then((response) => response.data)
 
-// Update an existing widget by name (used as ID)
+// Update an existing widget by name
 export const updateWidget = (widget: Widget): Promise<Widget> => 
   axios.put(`${BASE_URL}/v1/widgets/${widget.name}`, widget).then((response) => response.data)
 

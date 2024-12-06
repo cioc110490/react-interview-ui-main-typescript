@@ -6,7 +6,7 @@ export default function DeleteWidget() {
     const [name, setName] = useState('')
     const [loading, setLoading] = useState(false)
     const [success, setSuccess] = useState(false)
-    const [alreadyExists, setAlreadyExists] = useState(false)
+    const [found, setFound] = useState(false)
     const [debouncing, setDebouncing] = useState(false)
 
     const onUpdate = async () => {
@@ -29,7 +29,7 @@ export default function DeleteWidget() {
         const response = await findWidget(name);
         const exists = response !== null;
 
-        setAlreadyExists(exists);
+        setFound(exists);
         setDebouncing(false);
     };
 
@@ -66,7 +66,7 @@ export default function DeleteWidget() {
                             size="small"
                             sx={{ width: '70%' }}
                             value={name}
-                            helperText={alreadyExists && "Widget found."}
+                            helperText={found && "Widget found."}
                             onChange={(e) => { setName(e.target.value) }}
                         />
                     </Box>
@@ -76,7 +76,7 @@ export default function DeleteWidget() {
                             variant="contained"
                             color="primary"
                             sx={{ textTransform: 'none' }}
-                            disabled={!alreadyExists}
+                            disabled={!found}
                             onClick={onUpdate}
                         >
                             Delete

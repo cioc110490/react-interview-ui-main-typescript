@@ -53,6 +53,7 @@ export default function UpdateWidget() {
         // Validate that price is between 1 and 20000 with 2 decimal precision
         const isPriceValid = price >= 1 && price <= 20000 && !isNaN(price) && /^(\d+(\.\d{0,2})?)?$/.test(price.toString());
 
+        // Check if widget already exists
         const response = await findWidget(name);
         const exists = response !== null;
 

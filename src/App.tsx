@@ -16,7 +16,7 @@ const App = (): JSX.Element => {
     <>
       <SideBar selected={page} setSelected={setPage} />
 
-      {page === 'List' && <Stack><WidgetList /></Stack>}
+      {page === 'List' && <WidgetList />}
       {page === 'Create' && <CreateWidget />}
       {page === 'Update' && <UpdateWidget />}
       {page === 'Find' && <FindWidget />}
