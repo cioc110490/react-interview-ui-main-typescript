@@ -97,6 +97,10 @@ In case there server is not running or there is a problem with the connection, a
 
 ![image](https://github.com/user-attachments/assets/27ba2727-b2d7-4408-b305-c81b8f6f26b5)
 
+# Network Error Handling
+
+Unit tests were added for all the new components
+
 -------------------------------------
 
 This [Create React App](https://github.com/facebook/create-react-app) project is provided as a starting template for the TalentReef take-home interview. Feel free to make whatever modifications are necessary to complete the exercise.
