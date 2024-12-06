@@ -1,6 +1,7 @@
-import { Backdrop, Box, Button, CircularProgress, Snackbar, TextField, Typography } from "@mui/material";
+import { Backdrop, Box, Button, CircularProgress, Snackbar, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { findWidget, updateWidget, Widget } from "../../lib/apiConnect";
+import InputItem from "../InputItem/InputItem";
 
 export default function UpdateWidget() {
     const [name, setName] = useState('')
@@ -93,40 +94,9 @@ export default function UpdateWidget() {
                 </Typography>
 
                 <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
-                    <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                        <Typography sx={{ width: '30%' }}>Name</Typography>
-                        <TextField
-                            label="Name"
-                            size="small"
-                            sx={{ width: '70%' }}
-                            value={name}
-                            helperText={alreadyExists && "Widget found."}
-                            onChange={(e) => { setName(e.target.value) }}
-                        />
-                    </Box>
-
-                    <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                        <Typography sx={{ width: '30%' }}>Description</Typography>
-                        <TextField
-                            label="Description"
-                            size="small"
-                            sx={{ width: '70%' }}
-                            value={description}
-                            onChange={(e) => { setDescription(e.target.value) }}
-                        />
-                    </Box>
-
-                    <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                        <Typography sx={{ width: '30%' }}>Price</Typography>
-                        <TextField
-                            label="Price"
-                            size="small"
-                            type="number"
-                            sx={{ width: '70%' }}
-                            value={price}
-                            onChange={(e) => { setPrice(Number(e.target.value)) }}
-                        />
-                    </Box>
+                    <InputItem title='Name' value={name} setValue={setName} showHelperText={alreadyExists} helperText='Widget found.' />
+                    <InputItem title='Description' value={description} setValue={setDescription} />
+                    <InputItem title='Price' value={price} setValue={setPrice} numeric />
 
                     <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
                         <Button

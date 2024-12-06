@@ -5,9 +5,12 @@ interface InputItemProps {
     value: string | Number;
     setValue: Function;
     numeric?: boolean;
+    showHelperText?: boolean;
+    helperText?: string;
+    error?: boolean;
 }
 
-export default function InputItem({ title, value, setValue, numeric }: InputItemProps) {
+export default function InputItem({ title, value, setValue, numeric, showHelperText, helperText, error }: InputItemProps) {
 
     const onSetValue = (newValue: string | Number) => {
         numeric ? setValue(Number(newValue)) : setValue(newValue)
@@ -22,6 +25,8 @@ export default function InputItem({ title, value, setValue, numeric }: InputItem
                 type={numeric ? 'number' : 'text'}
                 sx={{ width: '70%' }}
                 value={value}
+                error={error}
+                helperText={showHelperText && helperText}
                 onChange={(e) => { onSetValue(e.target.value) }}
             />
         </Box>
