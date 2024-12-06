@@ -16,6 +16,7 @@ export default function DeleteWidget() {
             if (name) {
                 await deleteWidget(name);
 
+                setName('');
                 setSuccess(true);
             }
         } catch (error: any) {
