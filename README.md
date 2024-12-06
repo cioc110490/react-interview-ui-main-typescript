@@ -2,6 +2,16 @@
 
 # Updated
 
+## How to run
+
+```bash
+npm install
+```
+
+```bash
+npm start
+```
+
 The UI includes a sidebar menu with the following options:
 
 * `List`: Display all available widgets
