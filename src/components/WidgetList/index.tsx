@@ -47,6 +47,7 @@ const WidgetList = (): JSX.Element => {
     const handlePageSizeChange = (value: number) => {
         if(value >= 1) {
             setPageSize(value)
+            setPage(1);
         }
     }
 
@@ -89,7 +90,7 @@ const WidgetList = (): JSX.Element => {
                             container
                             justifyContent="center"
                             spacing={4}
-                            sx={{ paddingRight: 4, width: '100%' }}
+                            sx={{ paddingRight: 4, width: '100%', minHeight: '600px' }}
                         >
                             {widgets?.map((current, index) => (
                                 <WidgetDisplay key={index} widget={current} />
