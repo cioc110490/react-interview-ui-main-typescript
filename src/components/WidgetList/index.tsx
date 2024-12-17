@@ -89,6 +89,7 @@ const WidgetList = (): JSX.Element => {
                         <Grid
                             container
                             justifyContent="center"
+                            alignContent='start'
                             spacing={4}
                             sx={{ paddingRight: 4, width: '100%', minHeight: '600px' }}
                         >
