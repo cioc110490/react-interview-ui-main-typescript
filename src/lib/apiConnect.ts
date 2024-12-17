@@ -8,9 +8,18 @@ export interface Widget {
   price: number
 }
 
+export interface PaginatedResponse {
+  widgets: Widget[]
+  total: number
+}
+
 // Fetch all widgets
 export const fetchAllWidgets = (): Promise<Widget[]> => 
   axios.get(`${BASE_URL}/v1/widgets`).then((response) => response.data)
+
+// Fetch paginated widgets
+export const fetchPaginatedWidgets = (page: number, pageSize: number): Promise<PaginatedResponse> => 
+  axios.get(`${BASE_URL}/v1/widgets/paginated`, { params: { page, pageSize }}).then((response) => response.data)
 
 // Create a new widget
 export const createWidget = (widget: Widget): Promise<Widget> => 

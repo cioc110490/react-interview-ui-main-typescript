@@ -1,7 +1,7 @@
 import { Box, TextField, Typography } from "@mui/material";
 
 interface InputItemProps {
-    title: string;
+    title?: string;
     value: string | Number;
     setValue: Function;
     numeric?: boolean;
